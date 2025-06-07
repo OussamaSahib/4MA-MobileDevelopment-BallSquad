@@ -23,7 +23,7 @@ export default function LoginScreen(){
         {/* Logo */}
         <View style={styles.logoContainer}>
           <Image
-            source={require('../assets/images/ballsquad_logo_green.png')}
+            source={require('../assets/images/ballsquad_logo/ballsquad_logo_green.png')}
             style={styles.logo}
             resizeMode="contain"
           />

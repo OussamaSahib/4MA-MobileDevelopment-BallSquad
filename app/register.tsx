@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import BackButton from '../components/BackButton';
+import { registerUser } from "../lib/api/register";
+
+
+
+
 
 export default function RegisterScreen() {
 
@@ -12,22 +17,37 @@ export default function RegisterScreen() {
   const [phone, setPhone] = useState('');
   const [iban, setIban] = useState('');
 
+const handleRegister = async () => {
+  
+  try {
+    console.log("Bouton pressé");
+    await registerUser({ firstname, lastname, email, password, phone, iban });
+    alert("Compte créé avec succès !");
+    // 👉 ici tu peux naviguer vers login
+    // navigation.navigate("Login");  <-- si tu utilises React Navigation
+  } catch (error: any) {
+    if (error.message === "EMAIL_EXISTS") {
+      alert("Cette adresse email est déjà utilisée.");
+    } else {
+      alert("Erreur : " + error.message);
+    }
+  }
+};
+
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Bouton retour */}
         
-        <BackButton />
+      <BackButton />
 
       {/* Carte d'inscription */}
       <View style={styles.card}>
-        {/* Logo */}
-        <View style={styles.logoContainer}>
 
-        </View>
 
         {/* Formulaire */}
         <View style={styles.formContainer}>
-          <Text style={styles.title}>Création du compte</Text>
+          <Text style={styles.title}>Création du comptee</Text>
 
           <View style={styles.row}>
             <TextInput
@@ -81,9 +101,10 @@ export default function RegisterScreen() {
             secureTextEntry
           />
 
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={handleRegister}>
             <Text style={styles.buttonText}>Créer le compte</Text>
           </TouchableOpacity>
+
         </View>
       </View>
     </ScrollView>
@@ -110,14 +131,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.2)',
     overflow: 'hidden',
   },
-  logoContainer: {
-    alignItems: 'center',
-    padding: 1,
-  },
-  logo: {
-    width: 120,
-    height: 120,
-  },
+
   formContainer: {
     padding: 20,
   },
