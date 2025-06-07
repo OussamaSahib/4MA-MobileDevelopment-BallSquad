@@ -1,18 +1,22 @@
+import { useRouter } from 'expo-router';
 import React from 'react';
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 
 
 
 export default function LoginScreen(){
+  const router = useRouter();
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {/* Bouton Créer un compte */}
       <View style={styles.topRight}>
-        <TouchableOpacity style={styles.createAccount}>
+        <TouchableOpacity style={styles.createAccount} onPress={() => router.push('/register')}>
           <Text style={styles.createAccountText}>Créer un compte</Text>
         </TouchableOpacity>
       </View>
+
+
 
       {/* Carte de connexion */}
       <View style={styles.card}>
@@ -46,7 +50,7 @@ export default function LoginScreen(){
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
