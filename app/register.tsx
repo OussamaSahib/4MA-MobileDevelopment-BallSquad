@@ -1,13 +1,17 @@
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import BackButton from '../components/BackButton';
+import CustomAlert from "../components/PopupConfirmRegister";
 import { registerUser } from "../lib/api/register";
 
 
 
 
 
+
 export default function RegisterScreen() {
+  const router = useRouter();
 
   // Champs simulés
   const [email, setEmail] = useState('');
@@ -17,22 +21,27 @@ export default function RegisterScreen() {
   const [phone, setPhone] = useState('');
   const [iban, setIban] = useState('');
 
-const handleRegister = async () => {
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(""); 
+
+
   
-  try {
-    console.log("Bouton pressé");
-    await registerUser({ firstname, lastname, email, password, phone, iban });
-    alert("Compte créé avec succès !");
-    // 👉 ici tu peux naviguer vers login
-    // navigation.navigate("Login");  <-- si tu utilises React Navigation
-  } catch (error: any) {
-    if (error.message === "EMAIL_EXISTS") {
-      alert("Cette adresse email est déjà utilisée.");
-    } else {
-      alert("Erreur : " + error.message);
+  const handleRegister = async () => {
+    try {
+      console.log("Bouton pressé");
+      await registerUser({ firstname, lastname, email, password, phone, iban });
+      setAlertMessage("Compte créé avec succès !");
+      setAlertVisible(true);
+    } catch (error: any) {
+      const msg = error.message === "EMAIL_EXISTS"
+        ? "Cette adresse email est déjà utilisée."
+        : "Erreur : " + error.message;
+
+      setAlertMessage(msg);
+      setAlertVisible(true);
     }
-  }
-};
+  };
+
 
 
   return (
@@ -104,6 +113,20 @@ const handleRegister = async () => {
           <TouchableOpacity style={styles.button} onPress={handleRegister}>
             <Text style={styles.buttonText}>Créer le compte</Text>
           </TouchableOpacity>
+
+          <CustomAlert
+            visible={alertVisible}
+            message={alertMessage}
+            onClose={() => {
+              setAlertVisible(false);
+              if (alertMessage === "Compte créé avec succès !") {
+                setTimeout(() => {
+                  router.back(); // 👈 Slide from left (comme un retour)
+                }, 300); // petit délai pour laisser le popup se fermer
+              }
+            }}
+          />
+
 
         </View>
       </View>
