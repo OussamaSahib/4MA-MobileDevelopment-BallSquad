@@ -1,4 +1,6 @@
+import { getUser } from "@/lib/api/authentification/getuser";
 import { loginUser } from "@/lib/api/authentification/login";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View, } from "react-native";
@@ -18,18 +20,31 @@ export default function LoginScreen(){
   //Message Email non-existant, Mauvais Mot de passe, Remplir Champs
   const [loginError, setLoginError]= useState("");
 
+  //FCT POUR TENTATIVE DE CONNEXION
   const SubmitLogin= async()=>{
     setLoginError("");
 
+    //VÉRIFICATION DES CHAMPS REMPLIS
     if (!email || !password){
       setLoginError("Veuillez remplir tous les champs");
       return;
     }
 
+    //API LOGIN +GETUSER
     const response= await loginUser(email, password);
     if (response.success){
+      //Stockage de l’email localement
+      await AsyncStorage.setItem("userEmail", email);
+
+      //Récupérer et afficher les infos du user
+      const user= await getUser(email);
+      console.log("Utilisateur connecté :", user);
+
+      //Redirection MATCH
       router.push("/match");
-    } 
+    }
+
+    //MSGS D'ERREUR
     else if (response.error==="EMAIL_NOT_FOUND"){
       setLoginError("Ce compte n'existe pas");
     } 
@@ -40,6 +55,7 @@ export default function LoginScreen(){
       setLoginError("Erreur inconnue");
     }
   };
+
 
 
   return (

@@ -31,7 +31,7 @@ export default function RegisterScreen(){
   //Click sur bouton (+Utile pour Champs requis)
   const [triedSubmit, setTriedSubmit]= useState(false);
 
-
+  //FCT POUR TENTATIVE DE REGISTER
   const SubmitRegister= async()=>{
     setEmailError("");
     setTriedSubmit(true);
