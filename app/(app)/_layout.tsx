@@ -4,13 +4,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { StatusBar, StyleSheet, View } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 
 
 export default function AppLayout(){
   //NAVIGATION
   const router= useRouter();
+
+  //MARGE DE SÉCURITÉ NAVBAR
+  const insets = useSafeAreaInsets();
 
   //VÉRIFICATION SI USER CONNECTÉ
   const [isChecking, setIsChecking]= useState(true);
@@ -45,25 +48,23 @@ export default function AppLayout(){
   
   return (
     <>
-      <StatusBar backgroundColor="#000000" barStyle="light-content"/>
-      <SafeAreaProvider>
-        <View style={styles.background}>
-          <SafeAreaView style={styles.root} edges={["top", "bottom", "left", "right"]}>
-            <View style={styles.stackContainer}>
-              <Stack
-                screenOptions={{
-                  headerShown: false,
-                  animation: "none",
-                  contentStyle: {
-                    backgroundColor: "#1c1c1c",
-                  },
-                }}
-              />
-            </View>
-            <NavBar/>
-          </SafeAreaView>
+      <StatusBar backgroundColor="#000000" barStyle="light-content" />
+      <View style={[styles.background, {paddingBottom: insets.bottom}]}>
+        <View style={styles.root}>
+          <View style={styles.stackContainer}>
+            <Stack
+              screenOptions={{
+                headerShown: false,
+                animation: "none",
+                contentStyle:{
+                  backgroundColor: "#1c1c1c",
+                },
+              }}
+            />
+          </View>
+          <NavBar/>
         </View>
-      </SafeAreaProvider>
+      </View>
     </>
   );
 }

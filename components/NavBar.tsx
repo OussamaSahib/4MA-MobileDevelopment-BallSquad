@@ -16,32 +16,32 @@ export default function NavBar(){
     <View style={[styles.container, {paddingBottom: insets.bottom || 16, height: 60 +(insets.bottom || 16)}]}>
 
       {/*MATCHS*/}
-      <TouchableOpacity onPress={() => router.push("/matchs")}>
+      <TouchableOpacity onPress={()=>router.push("/matchs")}>
         <View style={styles.iconWrapper}>
           <Image source={require("@/assets/images/navbar/matchs_icon.png")} style={[styles.icon,
               pathname==="/matchs" && styles.activeIcon]}
           />
-          <Text style={[styles.label, pathname === "/matchs" && styles.activeLabel]}>
-            Match
+          <Text style={[styles.label, pathname==="/matchs" && styles.activeLabel]}>
+            Matchs
           </Text>
         </View>
       </TouchableOpacity>
 
 
       {/*MONEY*/}
-      <TouchableOpacity onPress={() => router.push("/matchs")}>
+      <TouchableOpacity onPress={()=>router.push("/matchs")}>
         <View style={styles.iconWrapper}>
           <Image
             source={require("@/assets/images/navbar/money_icon.png")}
             style={[
               styles.icon,
-              pathname === "/matchs" && styles.activeIcon,
+              pathname==="/matchs" && styles.activeIcon,
             ]}
           />
           <Text
             style={[
               styles.label,
-              pathname === "/matchs" && styles.activeLabel,
+              pathname==="/matchs" && styles.activeLabel,
             ]}
           >
             Argent
@@ -51,19 +51,19 @@ export default function NavBar(){
 
 
       {/*FRIENDS*/}
-      <TouchableOpacity onPress={() => router.push("/profile")}>
+      <TouchableOpacity onPress={()=>router.push("/profile")}>
         <View style={styles.iconWrapper}>
           <Image
             source={require("@/assets/images/navbar/friends_icon.png")}
             style={[
               styles.icon,
-              pathname === "/profile" && styles.activeIcon,
+              pathname==="/profile" && styles.activeIcon,
             ]}
           />
           <Text
             style={[
               styles.label,
-              pathname === "/profile" && styles.activeLabel,
+              pathname==="/profile" && styles.activeLabel,
             ]}
           >
             Amis
@@ -73,22 +73,22 @@ export default function NavBar(){
 
 
       {/*PROFILE*/}
-      <TouchableOpacity onPress={() => router.push("/profile")}>
+      <TouchableOpacity onPress={()=>router.push("/profile")}>
         <View style={styles.iconWrapper}>
           <Image
             source={require("@/assets/images/navbar/profile_icon.png")}
             style={[
               styles.icon,
-              pathname === "/profile" && styles.activeIcon,
+              pathname==="/profile" && styles.activeIcon,
             ]}
           />
           <Text
             style={[
               styles.label,
-              pathname === "/profile" && styles.activeLabel,
+              pathname==="/profile" && styles.activeLabel,
             ]}
           >
-            Profil
+            Profile
           </Text>
         </View>
       </TouchableOpacity>

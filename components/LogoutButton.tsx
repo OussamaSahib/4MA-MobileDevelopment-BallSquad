@@ -2,7 +2,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Image, StyleSheet, TouchableOpacity } from "react-native";
 
 
 
@@ -19,7 +19,10 @@ export default function LogoutButton(){
   
   return (
     <TouchableOpacity style={styles.button} onPress={SubmitLogout}>
-      <Text style={styles.text}>Se déconnecter</Text>
+      <Image
+        source={require("@/assets/images/buttons/logout_button.png")}
+        style={styles.icon}
+      />
     </TouchableOpacity>
   );
 }
@@ -28,15 +31,10 @@ export default function LogoutButton(){
 
 const styles= StyleSheet.create({
   button:{
-    backgroundColor: "#ff4d4d",
-    padding: 12,
-    borderRadius: 8,
-    alignItems: "center",
-    marginTop: 20,
+    padding: 10,
   },
-  text:{
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 16,
+  icon:{
+    width: 40,
+    height: 40,
   },
 });
