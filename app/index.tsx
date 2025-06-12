@@ -41,7 +41,7 @@ export default function LoginScreen(){
       console.log("Utilisateur connecté :", user);
 
       //Redirection MATCH
-      router.push("/match");
+      router.push("/matchs");
     }
 
     //MSGS D'ERREUR

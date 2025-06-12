@@ -15,7 +15,7 @@ export default function PublicLayout(){
       //SI MAIL DEJA STOCKÉ: MATCH
       const email= await AsyncStorage.getItem("userEmail");
       if (email){
-        router.replace("/match");
+        router.replace("/matchs");
       }
     })();
   }, []);
