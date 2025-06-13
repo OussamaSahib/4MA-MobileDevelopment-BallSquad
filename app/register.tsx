@@ -2,7 +2,7 @@ import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import BackButton from "../components/BackButton";
-import InputAuthentification from "../components/InputAuthentification";
+import InputForm from "../components/InputForm";
 import CustomAlert from "../components/PopupConfirmRegister";
 import { registerUser } from "../lib/api/authentification/register";
 
@@ -73,7 +73,7 @@ export default function RegisterScreen(){
 
             <View style={styles.row}>
               <View style={{flex: 1, marginRight: 6}}>
-                <InputAuthentification
+                <InputForm
                   label="Prénom"
                   value={firstname}
                   onChangeText={setFirstname}
@@ -83,7 +83,7 @@ export default function RegisterScreen(){
               </View>
 
               <View style={{flex: 1, marginLeft: 6}}>
-                <InputAuthentification
+                <InputForm
                   label="Nom"
                   value={lastname}
                   onChangeText={setLastname}
@@ -93,7 +93,7 @@ export default function RegisterScreen(){
               </View>
             </View>
 
-            <InputAuthentification
+            <InputForm
               label="Numéro GSM"
               value={phone}
               onChangeText={setPhone}
@@ -102,7 +102,7 @@ export default function RegisterScreen(){
               error={triedSubmit && phone === "" ? "Champ requis" : ""}
             />
 
-            <InputAuthentification
+            <InputForm
               label="IBAN"
               value={iban}
               onChangeText={setIban}
@@ -110,7 +110,7 @@ export default function RegisterScreen(){
               error={triedSubmit && iban === "" ? "Champ requis" : ""}
             />
 
-            <InputAuthentification
+            <InputForm
               label="Email"
               value={email}
               onChangeText={(text)=>{
@@ -122,7 +122,7 @@ export default function RegisterScreen(){
               error={triedSubmit && email === "" ? "Champ requis" : emailError}
             />
 
-            <InputAuthentification
+            <InputForm
               label="Mot de passe"
               value={password}
               onChangeText={setPassword}

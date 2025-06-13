@@ -57,7 +57,7 @@ export default function ProfilePage(){
       {/*PROFILE CARD*/}
       <ProfileCard user={user}>
         <TouchableOpacity
-          onPress={()=>router.push("/profile")}
+          onPress={()=>router.push("/profile/edit")}
           style={styles.editButton}
         >
           <Text style={styles.editText}>Modifier mon profile</Text>

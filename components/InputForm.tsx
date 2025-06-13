@@ -4,14 +4,15 @@ import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-nativ
 
 
 
-export default function InputAuthentification({label, value, onChangeText, required= false, secure= false, error= "", keyboardType= "default", showRequiredMark = true,}:{
+export default function InputForm({label, value, onChangeText, required= false, secure= false, error= "", keyboardType= "default", placeholder = "", showRequiredMark = true,}:{
   label: string;
   value: string;
-  onChangeText: (text: string) => void;
+  onChangeText: (text: string)=> void;
   required?: boolean;
   secure?: boolean;
   error?: string;
   keyboardType?: "default" | "email-address" | "phone-pad";
+  placeholder?: string;
   showRequiredMark?: boolean;
 }) {
   const [showPassword, setShowPassword]= useState(false);
@@ -19,10 +20,10 @@ export default function InputAuthentification({label, value, onChangeText, requi
   
   return (
     <View style={{marginBottom: 20}}>
-        <Text style={styles.label}>
-        {label}
-        {required && showRequiredMark && <Text style={styles.required}> *</Text>}
-        </Text>
+      <Text style={styles.label}>
+      {label}
+      {required && showRequiredMark && <Text style={styles.required}> *</Text>}
+      </Text>
 
       <View style={styles.inputContainer}>
         <TextInput
@@ -30,10 +31,12 @@ export default function InputAuthentification({label, value, onChangeText, requi
           onChangeText={onChangeText}
           style={[
             styles.input,
-            error !== "" && {borderColor: "#ff4d4d", borderWidth: 1},
+            error !== "" && { borderColor: "#ff4d4d", borderWidth: 1 },
           ]}
           secureTextEntry={secure && !showPassword}
           keyboardType={keyboardType}
+          placeholder={placeholder || label}      
+          placeholderTextColor="#888"                 
         />
 
         {secure && (

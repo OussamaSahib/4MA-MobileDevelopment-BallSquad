@@ -4,7 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View, } from "react-native";
-import InputAuthentification from "../components/InputAuthentification";
+import InputForm from "../components/InputForm";
 
 
 
@@ -90,7 +90,7 @@ export default function LoginScreen(){
           <View style={styles.formContainer}>
             <Text style={styles.title}>Connexion</Text>
 
-            <InputAuthentification
+            <InputForm
               label="Email"
               value={email}
               onChangeText={setEmail}
@@ -99,7 +99,7 @@ export default function LoginScreen(){
               keyboardType="email-address"
             />
 
-            <InputAuthentification
+            <InputForm
               label="Mot de passe"
               value={password}
               onChangeText={setPassword}
