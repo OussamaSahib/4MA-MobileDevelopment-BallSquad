@@ -1,3 +1,4 @@
+import BackButton from "@/components/BackButton";
 import InputForm from "@/components/InputForm";
 import { getUser } from "@/lib/api/authentification/getuser";
 import { updateUser } from "@/lib/api/authentification/updateuser";
@@ -175,10 +176,7 @@ export default function EditProfilePage(){
 
       <View style={styles.backContainer}>
         <TouchableOpacity onPress={() => router.back()}>
-          <Image
-            source={require("@/assets/images/buttons/back_button.png")}
-            style={styles.backIcon}
-          />
+          <BackButton />
         </TouchableOpacity>
       </View>
 
@@ -295,10 +293,6 @@ const styles= StyleSheet.create({
     maxWidth: 400,
     alignItems: "flex-start",
     marginBottom: 0,
-  },
-  backIcon: {
-    width: 45,
-    height: 45,
   },
   title:{
     fontSize: 28,

@@ -29,7 +29,7 @@ export default function NavBar(){
 
 
       {/*MONEY*/}
-      <TouchableOpacity onPress={()=>router.push("/matchs")}>
+      {/* <TouchableOpacity onPress={()=>router.push("/matchs")}>
         <View style={styles.iconWrapper}>
           <Image
             source={require("@/assets/images/navbar/money_icon.png")}
@@ -47,23 +47,23 @@ export default function NavBar(){
             Argent
           </Text>
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
 
       {/*FRIENDS*/}
-      <TouchableOpacity onPress={()=>router.push("/profile")}>
+      <TouchableOpacity onPress={()=>router.push("/friends")}>
         <View style={styles.iconWrapper}>
           <Image
             source={require("@/assets/images/navbar/friends_icon.png")}
             style={[
               styles.icon,
-              pathname==="/profile" && styles.activeIcon,
+              pathname==="/friends" && styles.activeIcon,
             ]}
           />
           <Text
             style={[
               styles.label,
-              pathname==="/profile" && styles.activeLabel,
+              pathname==="/friends" && styles.activeLabel,
             ]}
           >
             Amis
