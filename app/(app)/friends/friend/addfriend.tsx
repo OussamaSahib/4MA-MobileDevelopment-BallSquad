@@ -85,11 +85,6 @@ const styles= StyleSheet.create({
     alignItems: "center",
     marginBottom: 40,
   },
-  closeImage:{
-    width: 36,
-    height: 36,
-    resizeMode: "contain",
-  },
   title:{
     fontSize: 36,
     color: "#fff",
@@ -115,16 +110,17 @@ const styles= StyleSheet.create({
   name:{
     flex: 1,
     color: "#fff",
-    fontSize: 22,
+    fontSize: 24,
   },
   addButton:{
     backgroundColor: "#c5ff36",
-    paddingVertical: 6,
+    paddingVertical: 10,
     paddingHorizontal: 12,
     borderRadius: 8,
+    marginLeft: 20
   },
   addText:{
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
     color: "#000",
   },

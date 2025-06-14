@@ -8,16 +8,20 @@ export default function UserCard({
   firstname,
   lastname,
   id,
+  type,
 }: {
   id: number;
   photo?: string;
   firstname: string;
   lastname?: string;
+  type: "friend" | "guest"; 
 }) {
-  const router= useRouter();
+  const router = useRouter();
 
   return (
-    <TouchableOpacity onPress={() => router.push(`/friends/friend/${id}`)}>
+    <TouchableOpacity
+      onPress={()=> router.push(`/friends/${type}/${id}`)} 
+    >
       <View style={styles.card}>
         <Image
           source={
