@@ -11,7 +11,7 @@ export const getFriends= async()=>{
   if (!response.ok) throw new Error("Erreur lors du chargement des amis");
 
   const friends= await response.json();
-  for (const f of friends) {
+  for (const f of friends){
     if (f.friend.photo && !f.friend.photo.startsWith("http")){
       f.friend.photo= `${BASE_URL}${f.friend.photo}`;
     }
@@ -37,21 +37,33 @@ export const getFriendById= async (id: number)=>{
 
 
 
-export const getAllUsers = async () => {
-  const response = await fetch(`${BASE_URL}/api/users`);
+export const getAllUsers= async ()=>{
+  const email= await AsyncStorage.getItem("userEmail");
+  if (!email) throw new Error("Email introuvable");
+
+  const response= await fetch(`${BASE_URL}/api/friends/friend/allusers?email=${email}`);
   if (!response.ok) throw new Error("Erreur lors du chargement des utilisateurs");
-  return response.json();
+
+  return await response.json();
 };
 
 
-export const addFriend = async (friendId: number) => {
-  const form = new FormData();
-  form.append("friendId", friendId.toString());
-  const response = await fetch(`${BASE_URL}/api/friends`, {
+
+export const addFriend= async (friendId: number)=>{
+  const email= await AsyncStorage.getItem("userEmail");
+  if (!email) throw new Error("Email introuvable");
+
+  const formData= new FormData();
+  formData.append("friendId", String(friendId));
+  formData.append("email", email);
+
+  const response= await fetch(`${BASE_URL}/api/friends/friend/friend`, {
     method: "POST",
-    body: form,
+    body: formData,
   });
-  if (!response.ok) throw new Error("Erreur lors de l’ajout d’un ami");
-};
 
+  if (!response.ok){
+    throw new Error("Erreur lors de l'ajout de l'ami");
+  }
+};
 

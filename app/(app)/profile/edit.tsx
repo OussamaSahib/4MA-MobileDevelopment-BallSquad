@@ -174,13 +174,13 @@ export default function EditProfilePage(){
   return (
     <ScrollView contentContainerStyle={styles.scroll}>
 
-      <View style={styles.backContainer}>
-        <TouchableOpacity onPress={() => router.back()}>
-          <BackButton />
-        </TouchableOpacity>
-      </View>
-
-      <Text style={styles.title}>Modifier mon profile</Text>
+    <View style={styles.headerRow}>
+      <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <BackButton />
+      </TouchableOpacity>
+      
+      <Text style={styles.headerTitle}>Modifier mon profile</Text>
+    </View>
 
       <View style={styles.card}>
         {/* Photo */}
@@ -288,18 +288,25 @@ const styles= StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
   },
-  backContainer: {
+  headerRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
     width: "100%",
     maxWidth: 400,
-    alignItems: "flex-start",
-    marginBottom: 0,
+    marginBottom: 30,
+    position: "relative",
   },
-  title:{
-    fontSize: 28,
-    color: "#fff",
+  backButton: {
+    zIndex: 1,
+  },
+  headerTitle: {
+    flex: 1,
     textAlign: "center",
-    marginBottom: 20,
+    fontSize: 28,
     fontWeight: "bold",
+    color: "#fff",
+    marginLeft: -36,
   },
   card:{
     backgroundColor: "#1c1c1c",

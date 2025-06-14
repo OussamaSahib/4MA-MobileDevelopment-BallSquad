@@ -1,6 +1,7 @@
 import SearchBar from "@/components/SearchBar";
 import UserCard from "@/components/UserCard";
 import { getFriends } from "@/lib/api/friends/friend";
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -10,8 +11,9 @@ export default function FriendsPage(){
   const [friends, setFriends]= useState<any[]>([]);
   const [loading, setLoading]= useState(true);
   const [search, setSearch]= useState(""); 
+  const router = useRouter();
 
-  useEffect(() => {
+  useEffect(()=>{
     getFriends()
       .then((data)=> setFriends(data))
       .catch((err)=> console.error(err))
@@ -38,7 +40,7 @@ export default function FriendsPage(){
           placeholder="Rechercher un ami..."
           style={{ flex: 1 }}
         />
-        <TouchableOpacity onPress={() => console.log("Ajouter un ami")}>
+        <TouchableOpacity onPress={() => router.push("/friends/friend/addfriend")}>
           <Image
             source={require("@/assets/images/buttons/add_button.png")}
             style={styles.addImage}
@@ -66,6 +68,8 @@ export default function FriendsPage(){
           ))}
         </View>
       )}
+
+
     </ScrollView>
   );
 }
@@ -75,6 +79,7 @@ export default function FriendsPage(){
 const styles= StyleSheet.create({
   container:{
     padding: 20,
+    paddingBottom: 120
   },
   title: {
     fontSize: 36,
