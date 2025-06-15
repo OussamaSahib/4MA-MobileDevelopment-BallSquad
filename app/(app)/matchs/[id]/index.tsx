@@ -1,5 +1,6 @@
 import BackButton from "@/components/BackButton";
 import MatchCardDetails from "@/components/MatchCardDetails";
+import PlayerListTable from "@/components/PlayerListeTable";
 import { BASE_URL } from "@/lib/api/base_url";
 import { getMatchById } from "@/lib/api/matchs/detailsmatch/idmatch";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -38,7 +39,7 @@ export default function MatchDetailsPage(){
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.headerRow}>
-        <BackButton/>
+        <BackButton to={"/matchs"}/>
         <TouchableOpacity onPress={()=>router.push(`/matchs/${match.id}/editmatch`)}>
           <Image source={require("@/assets/images/buttons/edit_button.png")} style={styles.icon}/>
         </TouchableOpacity>
@@ -46,6 +47,8 @@ export default function MatchDetailsPage(){
 
       {/* Match Info */}
       <MatchCardDetails match={match} user={user}/>
+
+      <PlayerListTable match={match} />
     </ScrollView>
   );
 }
@@ -53,6 +56,7 @@ export default function MatchDetailsPage(){
 const styles= StyleSheet.create({
   container:{
     padding: 20,
+    paddingBottom: 120,
     backgroundColor: "#1c1c1c",
     flexGrow: 1,
   },
