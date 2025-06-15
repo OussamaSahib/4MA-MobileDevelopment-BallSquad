@@ -19,9 +19,9 @@ export default function NavBar(){
       <TouchableOpacity onPress={()=>router.push("/matchs")}>
         <View style={styles.iconWrapper}>
           <Image source={require("@/assets/images/navbar/matchs_icon.png")} style={[styles.icon,
-              pathname==="/matchs" && styles.activeIcon]}
+              pathname.startsWith("/matchs") && styles.activeIcon]}
           />
-          <Text style={[styles.label, pathname==="/matchs" && styles.activeLabel]}>
+          <Text style={[styles.label, pathname.startsWith("/matchs") && styles.activeLabel]}>
             Matchs
           </Text>
         </View>
@@ -35,13 +35,13 @@ export default function NavBar(){
             source={require("@/assets/images/navbar/money_icon.png")}
             style={[
               styles.icon,
-              pathname==="/matchs" && styles.activeIcon,
+              pathname.startsWith("/matchs") && styles.activeIcon,
             ]}
           />
           <Text
             style={[
               styles.label,
-              pathname==="/matchs" && styles.activeLabel,
+              pathname.startsWith("/matchs") && styles.activeLabel,
             ]}
           >
             Argent
@@ -57,13 +57,13 @@ export default function NavBar(){
             source={require("@/assets/images/navbar/friends_icon.png")}
             style={[
               styles.icon,
-              pathname==="/friends" && styles.activeIcon,
+              pathname.startsWith("/friends") && styles.activeIcon,
             ]}
           />
           <Text
             style={[
               styles.label,
-              pathname==="/friends" && styles.activeLabel,
+              pathname.startsWith("/friends") && styles.activeLabel,
             ]}
           >
             Amis
@@ -79,13 +79,13 @@ export default function NavBar(){
             source={require("@/assets/images/navbar/profile_icon.png")}
             style={[
               styles.icon,
-              pathname==="/profile" && styles.activeIcon,
+              pathname.startsWith("/profile") && styles.activeIcon,
             ]}
           />
           <Text
             style={[
               styles.label,
-              pathname==="/profile" && styles.activeLabel,
+              pathname.startsWith("/profile") && styles.activeLabel,
             ]}
           >
             Profile
