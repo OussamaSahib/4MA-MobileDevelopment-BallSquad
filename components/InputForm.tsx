@@ -11,7 +11,7 @@ export default function InputForm({label, value, onChangeText, required= false, 
   required?: boolean;
   secure?: boolean;
   error?: string;
-  keyboardType?: "default" | "email-address" | "phone-pad";
+  keyboardType?: "default" | "email-address" | "phone-pad" | "numeric";
   placeholder?: string;
   showRequiredMark?: boolean;
 }) {

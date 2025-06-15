@@ -1,4 +1,4 @@
-import BackButton from "@/components/BackButton";
+import AddButton from "@/components/AddButton";
 import MatchCard from "@/components/MatchCard";
 import { BASE_URL } from "@/lib/api/base_url";
 import { getMatchs } from "@/lib/api/matchs/match";
@@ -50,7 +50,7 @@ export default function MatchListPage(){
       <View style={styles.header}>
         <Text style={styles.title}>MATCHS</Text>
         <View style={styles.AddMatchContainer}>
-          <BackButton />
+          <AddButton route="/matchs/newmatch"/>
         </View>
       </View>
 
@@ -109,7 +109,7 @@ const styles= StyleSheet.create({
   AddMatchContainer:{
     position: "absolute",
     right: 0,
-    top: "35%",
+    top: "40%",
     transform: [{translateY: -20}],
   },
   tabs:{

@@ -1,3 +1,4 @@
+import AddButton from "@/components/AddButton";
 import SearchBar from "@/components/SearchBar";
 import UserCard from "@/components/UserCard";
 import { getFriends } from "@/lib/api/friends/friend";
@@ -6,12 +7,10 @@ import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
-  Image,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  View,
+  View
 } from "react-native";
 
 export default function FriendsPage() {
@@ -56,12 +55,7 @@ export default function FriendsPage() {
           placeholder="Rechercher un ami..."
           style={{ flex: 1 }}
         />
-        <TouchableOpacity onPress={() => router.push("/friends/friend/addfriend")}>
-          <Image
-            source={require("@/assets/images/buttons/add_button.png")}
-            style={styles.addImage}
-          />
-        </TouchableOpacity>
+        <AddButton route="/friends/friend/addfriend"/>
       </View>
 
       {loading ? (
@@ -97,12 +91,7 @@ export default function FriendsPage() {
           placeholder="Rechercher un invité..."
           style={{ flex: 1 }}
         />
-        <TouchableOpacity onPress={()=> router.push("/friends/guest/addguest")}>
-          <Image
-            source={require("@/assets/images/buttons/add_button.png")}
-            style={styles.addImage}
-          />
-        </TouchableOpacity>
+        <AddButton route="/friends/guest/addguest"/>
       </View>
 
       {loading ? (
