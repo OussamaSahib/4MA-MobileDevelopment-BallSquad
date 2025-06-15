@@ -39,8 +39,7 @@ export default function MatchCard({match, userId}: {match: any; userId?: number}
 
 
   return (
-    <TouchableOpacity onPress={()=>router.push("/profile")} style={styles.card}>
-    {/* <TouchableOpacity onPress={() => router.push(`/match/${match.id}`)} style={styles.card}> */}
+    <TouchableOpacity onPress={() => router.push(`/matchs/${match.id}`)} style={styles.card}>
       {/* Icône créateur */}
       {isCreator && (
         <Image
