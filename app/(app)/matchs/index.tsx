@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 
@@ -45,43 +46,45 @@ export default function MatchListPage(){
     );
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {/*TITRE*/}
-      <View style={styles.header}>
-        <Text style={styles.title}>MATCHS</Text>
-        <View style={styles.AddMatchContainer}>
-          <AddButton route="/matchs/newmatch"/>
+    <SafeAreaView>
+      <ScrollView contentContainerStyle={styles.container}>
+        {/*TITRE*/}
+        <View style={styles.header}>
+          <Text style={styles.title}>MATCHS</Text>
+          <View style={styles.AddMatchContainer}>
+            <AddButton route="/matchs/newmatch"/>
+          </View>
         </View>
-      </View>
 
-      <View style={styles.tabs}>
-        <TouchableOpacity
-          onPress={() => setActiveTab("prochains")}
-          style={[styles.tabButton, activeTab === "prochains" && styles.activeTabButton]}
-        >
-          <Text style={[styles.tabText, activeTab === "prochains" && styles.activeTabText]}>
-            Prochains
-          </Text>
-        </TouchableOpacity>
+        <View style={styles.tabs}>
+          <TouchableOpacity
+            onPress={() => setActiveTab("prochains")}
+            style={[styles.tabButton, activeTab === "prochains" && styles.activeTabButton]}
+          >
+            <Text style={[styles.tabText, activeTab === "prochains" && styles.activeTabText]}>
+              Prochains
+            </Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => setActiveTab("anciens")}
-          style={[styles.tabButton, activeTab === "anciens" && styles.activeTabButton]}
-        >
-          <Text style={[styles.tabText, activeTab === "anciens" && styles.activeTabText]}>
-            Anciens
-          </Text>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity
+            onPress={() => setActiveTab("anciens")}
+            style={[styles.tabButton, activeTab === "anciens" && styles.activeTabButton]}
+          >
+            <Text style={[styles.tabText, activeTab === "anciens" && styles.activeTabText]}>
+              Anciens
+            </Text>
+          </TouchableOpacity>
+        </View>
 
-      {filtered.length > 0 ? (
-        filtered.map((match: any) => (
-          <MatchCard key={match.id} match={match} userId={userId ?? undefined} />
-        ))
-      ) : (
-        <Text style={styles.empty}>Aucun match</Text>
-      )}
-    </ScrollView>
+        {filtered.length > 0 ? (
+          filtered.map((match: any) => (
+            <MatchCard key={match.id} match={match} userId={userId ?? undefined} />
+          ))
+        ) : (
+          <Text style={styles.empty}>Aucun match</Text>
+        )}
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 

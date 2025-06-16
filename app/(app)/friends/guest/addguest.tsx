@@ -4,6 +4,7 @@ import { addGuest } from "@/lib/api/friends/guest";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 
@@ -28,41 +29,43 @@ export default function AddGuestPage(){
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.header}>
-            <BackButton />
+    <SafeAreaView>
+      <ScrollView contentContainerStyle={styles.container}>
+          <View style={styles.header}>
+              <BackButton />
 
-            <Text style={styles.title}>Ajouter un ami</Text>
-        <View style={styles.side}/>
-        </View>
+              <Text style={styles.title}>Ajouter un ami</Text>
+          <View style={styles.side}/>
+          </View>
 
-      <InputForm
-        label="Prénom"
-        value={firstname}
-        onChangeText={setFirstname}
-        required
-        placeholder="Jean"
-      />
+        <InputForm
+          label="Prénom"
+          value={firstname}
+          onChangeText={setFirstname}
+          required
+          placeholder="Jean"
+        />
 
-      <InputForm
-        label="Nom"
-        value={lastname}
-        onChangeText={setLastname}
-        placeholder="Dupont"
-      />
+        <InputForm
+          label="Nom"
+          value={lastname}
+          onChangeText={setLastname}
+          placeholder="Dupont"
+        />
 
-      <InputForm
-        label="Numéro GSM"
-        value={phone}
-        onChangeText={setPhone}
-        keyboardType="phone-pad"
-        placeholder="0470..."
-      />
+        <InputForm
+          label="Numéro GSM"
+          value={phone}
+          onChangeText={setPhone}
+          keyboardType="phone-pad"
+          placeholder="0470..."
+        />
 
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Ajouter l'invité</Text>
-      </TouchableOpacity>
-    </ScrollView>
+        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+          <Text style={styles.buttonText}>Ajouter l'invité</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 

@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 
@@ -37,19 +38,21 @@ export default function MatchDetailsPage(){
 
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.headerRow}>
-        <BackButton to={"/matchs"}/>
-        <TouchableOpacity onPress={()=>router.push(`/matchs/${match.id}/editmatch`)}>
-          <Image source={require("@/assets/images/buttons/edit_button.png")} style={styles.icon}/>
-        </TouchableOpacity>
-      </View>
+    <SafeAreaView>
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.headerRow}>
+          <BackButton to={"/matchs"}/>
+          <TouchableOpacity onPress={()=>router.push(`/matchs/${match.id}/editmatch`)}>
+            <Image source={require("@/assets/images/buttons/edit_button.png")} style={styles.icon}/>
+          </TouchableOpacity>
+        </View>
 
-      {/* Match Info */}
-      <MatchCardDetails match={match} user={user}/>
+        {/* Match Info */}
+        <MatchCardDetails match={match} user={user}/>
 
-      <PlayerListTable match={match} />
-    </ScrollView>
+        <PlayerListTable match={match} />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 

@@ -4,7 +4,8 @@ import { getUser } from "@/lib/api/authentification/getuser";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Alert, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 
@@ -44,7 +45,7 @@ export default function ProfilePage(){
 
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
 
       {/*TITRE*/}
       <View style={styles.header}>
@@ -65,7 +66,7 @@ export default function ProfilePage(){
       </ProfileCard>
 
       {/*BOUTON SUPRESSION DU COMPTE*/}
-      <View style={styles.deleteRow}>
+      {/* <View style={styles.deleteRow}>
         <TouchableOpacity
           onPress={()=>Alert.alert("Suppression", "Fonction à implémenter")}
           style={styles.deleteTouch}
@@ -76,8 +77,8 @@ export default function ProfilePage(){
           />
           <Text style={styles.deleteText}>Supprimer le compte</Text>
         </TouchableOpacity>
-      </View>
-    </View>
+      </View> */}
+    </SafeAreaView>
   );
 }
 

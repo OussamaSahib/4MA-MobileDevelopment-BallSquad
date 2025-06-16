@@ -4,6 +4,7 @@ import { getGuestById } from "@/lib/api/friends/guest";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 
@@ -39,12 +40,12 @@ export default function GuestProfilePage(){
 
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.backContainer}>
         <BackButton />
       </View>
       <GuestProfileCard user={user}/>
-    </View>
+    </SafeAreaView>
   );
 }
 

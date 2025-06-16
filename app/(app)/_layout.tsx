@@ -49,9 +49,9 @@ export default function AppLayout(){
   return (
     <>
       <StatusBar backgroundColor="#000000" barStyle="light-content" />
-      <View style={[styles.background, {paddingBottom: insets.bottom}]}>
+      <View style={[styles.background]}>
         <View style={styles.root}>
-          <View style={styles.stackContainer}>
+          <View style={[styles.stackContainer, {paddingBottom: insets.bottom}]}>
             <Stack
               screenOptions={{
                 headerShown: false,

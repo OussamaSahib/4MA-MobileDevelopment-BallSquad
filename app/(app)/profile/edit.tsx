@@ -8,6 +8,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 
@@ -172,108 +173,110 @@ export default function EditProfilePage(){
   }
 
   return (
-    <ScrollView contentContainerStyle={styles.scroll}>
+    <SafeAreaView>
+      <ScrollView contentContainerStyle={styles.scroll}>
 
-    <View style={styles.headerRow}>
-      <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-        <BackButton />
-      </TouchableOpacity>
-      
-      <Text style={styles.headerTitle}>Modifier mon profile</Text>
-    </View>
-
-      <View style={styles.card}>
-        {/* Photo */}
-        <View style={styles.photoContainer}>
-          <Image
-            source={{ uri: user.previewUri }}
-            style={styles.photo}
-          />
-          {/* BOUTON SUPPRESSION */}
-          {!removePhoto && (user.photo || user.newPhoto) && (
-            <TouchableOpacity
-              style={styles.removeButton}
-              onPress={() => {
-                setRemovePhoto(true);
-                setUser((prev: any) => ({
-                  ...prev,
-                  newPhoto: undefined,
-                  previewUri: BASE_URL + "/images/profile_photos/profile_icon.png",
-                }));
-              }}
-            >
-              <Image
-                source={require("@/assets/images/buttons/deletephoto_button.png")}
-                style={styles.removeIcon}
-              />
-            </TouchableOpacity>
-          )}
-
-          <TouchableOpacity onPress={chooseImageOption}>
-            <Text style={styles.photoButtonText}>Changer la photo</Text>
+        <View style={styles.headerRow}>
+          <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+            <BackButton />
           </TouchableOpacity>
-
+          
+          <Text style={styles.headerTitle}>Modifier mon profile</Text>
         </View>
 
+        <View style={styles.card}>
+          {/* Photo */}
+          <View style={styles.photoContainer}>
+            <Image
+              source={{ uri: user.previewUri }}
+              style={styles.photo}
+            />
+            {/* BOUTON SUPPRESSION */}
+            {!removePhoto && (user.photo || user.newPhoto) && (
+              <TouchableOpacity
+                style={styles.removeButton}
+                onPress={() => {
+                  setRemovePhoto(true);
+                  setUser((prev: any) => ({
+                    ...prev,
+                    newPhoto: undefined,
+                    previewUri: BASE_URL + "/images/profile_photos/profile_icon.png",
+                  }));
+                }}
+              >
+                <Image
+                  source={require("@/assets/images/buttons/deletephoto_button.png")}
+                  style={styles.removeIcon}
+                />
+              </TouchableOpacity>
+            )}
+
+            <TouchableOpacity onPress={chooseImageOption}>
+              <Text style={styles.photoButtonText}>Changer la photo</Text>
+            </TouchableOpacity>
+
+          </View>
 
 
-        <InputForm
-          label="Prénom"
-          value={user.firstname}
-          onChangeText={(text) => handleChange("firstname", text)}
-          required
-          error={triedSubmit && user.firstname === "" ? "Champ requis" : ""}
-        />
 
-        <InputForm
-          label="Nom"
-          value={user.lastname}
-          onChangeText={(text) => handleChange("lastname", text)}
-          required
-          error={triedSubmit && user.lastname === "" ? "Champ requis" : ""}
-        />
+          <InputForm
+            label="Prénom"
+            value={user.firstname}
+            onChangeText={(text) => handleChange("firstname", text)}
+            required
+            error={triedSubmit && user.firstname === "" ? "Champ requis" : ""}
+          />
 
-        <InputForm
-          label="Email"
-          value={user.email}
-          onChangeText={(text) => handleChange("email", text)}
-          required
-          keyboardType="email-address"
-          error={triedSubmit && user.email === "" ? "Champ requis" : ""}
-        />
+          <InputForm
+            label="Nom"
+            value={user.lastname}
+            onChangeText={(text) => handleChange("lastname", text)}
+            required
+            error={triedSubmit && user.lastname === "" ? "Champ requis" : ""}
+          />
 
-        <InputForm
-          label="Téléphone"
-          value={user.phone}
-          onChangeText={(text) => handleChange("phone", text)}
-          required
-          keyboardType="phone-pad"
-          error={triedSubmit && user.phone === "" ? "Champ requis" : ""}
-        />
+          <InputForm
+            label="Email"
+            value={user.email}
+            onChangeText={(text) => handleChange("email", text)}
+            required
+            keyboardType="email-address"
+            error={triedSubmit && user.email === "" ? "Champ requis" : ""}
+          />
 
-        <InputForm
-          label="IBAN"
-          value={user.iban}
-          onChangeText={(text) => handleChange("iban", text)}
-          required
-          error={triedSubmit && user.iban === "" ? "Champ requis" : ""}
-        />
+          <InputForm
+            label="Téléphone"
+            value={user.phone}
+            onChangeText={(text) => handleChange("phone", text)}
+            required
+            keyboardType="phone-pad"
+            error={triedSubmit && user.phone === "" ? "Champ requis" : ""}
+          />
 
-        <InputForm
-          label="Mot de passe"
-          placeholder="Laisser vide si inchangé"
-          value={user.password}
-          onChangeText={(text) => handleChange("password", text)}
-          secure
-        />
+          <InputForm
+            label="IBAN"
+            value={user.iban}
+            onChangeText={(text) => handleChange("iban", text)}
+            required
+            error={triedSubmit && user.iban === "" ? "Champ requis" : ""}
+          />
+
+          <InputForm
+            label="Mot de passe"
+            placeholder="Laisser vide si inchangé"
+            value={user.password}
+            onChangeText={(text) => handleChange("password", text)}
+            secure
+          />
 
 
-        {/* Bouton */}
-        <TouchableOpacity style={styles.button} onPress={handleSave}>
-          <Text style={styles.buttonText}>Sauvegarder</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+          {/* Bouton */}
+          <TouchableOpacity style={styles.button} onPress={handleSave}>
+            <Text style={styles.buttonText}>Sauvegarder</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 

@@ -5,14 +5,15 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import {
-    Alert,
-    Platform,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View
+  Alert,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function NewMatchPage() {
   const router = useRouter();
@@ -93,171 +94,173 @@ export default function NewMatchPage() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-        <View style={styles.headerRow}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-            <BackButton />
-        </TouchableOpacity>
-        
-        <Text style={styles.headerTitle}>Nouveau Match</Text>
+    <SafeAreaView>
+      <ScrollView contentContainerStyle={styles.container}>
+          <View style={styles.headerRow}>
+          <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+              <BackButton />
+          </TouchableOpacity>
+          
+          <Text style={styles.headerTitle}>Nouveau Match</Text>
+          </View>
+
+        {/* Sport */}
+        <Text style={styles.label}>Sport <Text style={styles.required}>*</Text></Text>
+        <View style={styles.radioGroup}>
+          {sports.map((sport) => (
+            <TouchableOpacity
+              key={sport}
+              style={[styles.radio, form.sport === sport && styles.radioSelected]}
+              onPress={() => updateField("sport", sport)}
+            >
+              <Text style={[styles.radioText, form.sport === sport && styles.radioTextSelected]}>
+                {sport}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+        {errors.sport && <Text style={styles.error}>{errors.sport}</Text>}
+
+        {/* Nombre de joueurs */}
+        <Text style={styles.label}>Nombre de joueurs <Text style={styles.required}>*</Text></Text>
+        <View style={styles.radioGroup}>
+          {Array.from({ length: 14 }, (_, i) => (i + 1).toString()).map((num) => (
+            <TouchableOpacity
+              key={num}
+              style={[styles.radioSmall, form.quantity_players === num && styles.radioSelected]}
+              onPress={() => updateField("quantity_players", num)}
+            >
+              <Text style={[styles.radioText, form.quantity_players === num && styles.radioTextSelected]}>
+                {num}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+        {errors.quantity_players && <Text style={styles.error}>{errors.quantity_players}</Text>}
+
+        {/* Date */}
+        <Text style={styles.label}>Date <Text style={styles.required}>*</Text></Text>
+          <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styles.input}>
+              <Text style={form.date ? styles.inputText : styles.placeholderText}>
+                  {form.date || "Choisir une date"}
+              </Text>
+          </TouchableOpacity>
+        {showDatePicker && (
+          <DateTimePicker
+            value={form.date ? new Date(form.date) : new Date()}
+            mode="date"
+            display={Platform.OS === "ios" ? "spinner" : "default"}
+            onChange={handleDateChange}
+          />
+        )}
+        {errors.date && <Text style={styles.error}>{errors.date}</Text>}
+
+
+          <Text style={styles.label}>
+          Heures<Text style={styles.required}>*</Text> 
+          </Text>
+
+          <View style={styles.timeRow}>
+          <TouchableOpacity onPress={() => setShowStartTimePicker(true)} style={styles.inputTime}>
+              <Text style={form.start_time ? styles.inputText : styles.placeholderText}>
+                  {form.start_time || "Début"}
+              </Text>
+          </TouchableOpacity>
+          <Text style={styles.arrow}>→</Text>
+
+          <TouchableOpacity onPress={() => setShowEndTimePicker(true)} style={styles.inputTime}>
+              <Text style={form.end_time ? styles.inputText : styles.placeholderText}>
+                  {form.end_time || "Fin"}
+              </Text>
+          </TouchableOpacity>
+          </View>
+
+          {errors.start_time && <Text style={styles.error}>{errors.start_time}</Text>}
+          {errors.end_time && <Text style={styles.error}>{errors.end_time}</Text>}
+
+          {showStartTimePicker && (
+          <DateTimePicker
+              value={new Date()}
+              mode="time"
+              is24Hour={true}
+              display={Platform.OS === "ios" ? "spinner" : "default"}
+              onChange={handleStartTimeChange}
+          />
+          )}
+
+          {showEndTimePicker && (
+          <DateTimePicker
+              value={new Date()}
+              mode="time"
+              is24Hour={true}
+              display={Platform.OS === "ios" ? "spinner" : "default"}
+              onChange={handleEndTimeChange}
+          />
+          )}
+
+
+        {/* Lieu */}
+        <Text style={styles.label}>Lieu <Text style={styles.required}>*</Text></Text>
+        <View style={styles.radioGroup}>
+          {places.map((p) => (
+            <TouchableOpacity
+              key={p}
+              style={[styles.radio, form.place === p && styles.radioSelected]}
+              onPress={() => updateField("place", p)}
+            >
+              <Text style={[styles.radioText, form.place === p && styles.radioTextSelected]}>
+                {p}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
 
-      {/* Sport */}
-      <Text style={styles.label}>Sport <Text style={styles.required}>*</Text></Text>
-      <View style={styles.radioGroup}>
-        {sports.map((sport) => (
-          <TouchableOpacity
-            key={sport}
-            style={[styles.radio, form.sport === sport && styles.radioSelected]}
-            onPress={() => updateField("sport", sport)}
-          >
-            <Text style={[styles.radioText, form.sport === sport && styles.radioTextSelected]}>
-              {sport}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-      {errors.sport && <Text style={styles.error}>{errors.sport}</Text>}
-
-      {/* Nombre de joueurs */}
-      <Text style={styles.label}>Nombre de joueurs <Text style={styles.required}>*</Text></Text>
-      <View style={styles.radioGroup}>
-        {Array.from({ length: 14 }, (_, i) => (i + 1).toString()).map((num) => (
-          <TouchableOpacity
-            key={num}
-            style={[styles.radioSmall, form.quantity_players === num && styles.radioSelected]}
-            onPress={() => updateField("quantity_players", num)}
-          >
-            <Text style={[styles.radioText, form.quantity_players === num && styles.radioTextSelected]}>
-              {num}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-      {errors.quantity_players && <Text style={styles.error}>{errors.quantity_players}</Text>}
-
-      {/* Date */}
-      <Text style={styles.label}>Date <Text style={styles.required}>*</Text></Text>
-        <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styles.input}>
-            <Text style={form.date ? styles.inputText : styles.placeholderText}>
-                {form.date || "Choisir une date"}
-            </Text>
-        </TouchableOpacity>
-      {showDatePicker && (
-        <DateTimePicker
-          value={form.date ? new Date(form.date) : new Date()}
-          mode="date"
-          display={Platform.OS === "ios" ? "spinner" : "default"}
-          onChange={handleDateChange}
+        {/* Terrain */}
+        <InputForm
+          label="Terrain"
+          value={form.field}
+          onChangeText={(text) => updateField("field", text)}
+          required
+          error={errors.field}
         />
-      )}
-      {errors.date && <Text style={styles.error}>{errors.date}</Text>}
 
-
-        <Text style={styles.label}>
-        Heures<Text style={styles.required}>*</Text> 
-        </Text>
-
-        <View style={styles.timeRow}>
-        <TouchableOpacity onPress={() => setShowStartTimePicker(true)} style={styles.inputTime}>
-            <Text style={form.start_time ? styles.inputText : styles.placeholderText}>
-                {form.start_time || "Début"}
-            </Text>
-        </TouchableOpacity>
-        <Text style={styles.arrow}>→</Text>
-
-        <TouchableOpacity onPress={() => setShowEndTimePicker(true)} style={styles.inputTime}>
-            <Text style={form.end_time ? styles.inputText : styles.placeholderText}>
-                {form.end_time || "Fin"}
-            </Text>
-        </TouchableOpacity>
+        {/* Prix */}
+        <Text style={styles.label}>Prix total <Text style={styles.required}>*</Text></Text>
+        <View style={styles.priceRow}>
+          <InputForm
+            label="Euros"
+            value={form.price_euros}
+            onChangeText={(text) => updateField("price_euros", text)}
+            required
+            keyboardType="numeric"
+            error={errors.price_euros}
+            showRequiredMark={false}
+          />
+          <Text style={styles.priceSeparator}>,</Text>
+          <InputForm
+            label="Cents"
+            value={form.price_cents}
+            onChangeText={(text) => updateField("price_cents", text)}
+            required
+            keyboardType="numeric"
+            error={errors.price_cents}
+            showRequiredMark={false}
+          />
+          <Text style={styles.priceSeparator}>€</Text>
         </View>
 
-        {errors.start_time && <Text style={styles.error}>{errors.start_time}</Text>}
-        {errors.end_time && <Text style={styles.error}>{errors.end_time}</Text>}
-
-        {showStartTimePicker && (
-        <DateTimePicker
-            value={new Date()}
-            mode="time"
-            is24Hour={true}
-            display={Platform.OS === "ios" ? "spinner" : "default"}
-            onChange={handleStartTimeChange}
-        />
-        )}
-
-        {showEndTimePicker && (
-        <DateTimePicker
-            value={new Date()}
-            mode="time"
-            is24Hour={true}
-            display={Platform.OS === "ios" ? "spinner" : "default"}
-            onChange={handleEndTimeChange}
-        />
-        )}
-
-
-      {/* Lieu */}
-      <Text style={styles.label}>Lieu <Text style={styles.required}>*</Text></Text>
-      <View style={styles.radioGroup}>
-        {places.map((p) => (
-          <TouchableOpacity
-            key={p}
-            style={[styles.radio, form.place === p && styles.radioSelected]}
-            onPress={() => updateField("place", p)}
-          >
-            <Text style={[styles.radioText, form.place === p && styles.radioTextSelected]}>
-              {p}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-
-      {/* Terrain */}
-      <InputForm
-        label="Terrain"
-        value={form.field}
-        onChangeText={(text) => updateField("field", text)}
-        required
-        error={errors.field}
-      />
-
-      {/* Prix */}
-      <Text style={styles.label}>Prix total <Text style={styles.required}>*</Text></Text>
-      <View style={styles.priceRow}>
-        <InputForm
-          label="Euros"
-          value={form.price_euros}
-          onChangeText={(text) => updateField("price_euros", text)}
-          required
-          keyboardType="numeric"
-          error={errors.price_euros}
-          showRequiredMark={false}
-        />
-        <Text style={styles.priceSeparator}>,</Text>
-        <InputForm
-          label="Cents"
-          value={form.price_cents}
-          onChangeText={(text) => updateField("price_cents", text)}
-          required
-          keyboardType="numeric"
-          error={errors.price_cents}
-          showRequiredMark={false}
-        />
-        <Text style={styles.priceSeparator}>€</Text>
-      </View>
-
-      {/* Bouton */}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleSubmit}
-        disabled={submitting}
-      >
-        <Text style={styles.buttonText}>
-          {submitting ? "Création..." : "Créer le Match"}
-        </Text>
-      </TouchableOpacity>
-    </ScrollView>
+        {/* Bouton */}
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleSubmit}
+          disabled={submitting}
+        >
+          <Text style={styles.buttonText}>
+            {submitting ? "Création..." : "Créer le Match"}
+          </Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 

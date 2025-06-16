@@ -12,6 +12,7 @@ import {
   Text,
   View
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function FriendsPage() {
   const [friends, setFriends] = useState<any[]>([]);
@@ -44,81 +45,83 @@ export default function FriendsPage() {
   );
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {/* SECTION AMIS */}
-      <Text style={styles.title}>Mes Amis</Text>
+    <SafeAreaView>
+      <ScrollView contentContainerStyle={styles.container}>
+        {/* SECTION AMIS */}
+        <Text style={styles.title}>Mes Amis</Text>
 
-      <View style={styles.searchRow}>
-        <SearchBar
-          value={search}
-          onChange={setSearch}
-          placeholder="Rechercher un ami..."
-          style={{ flex: 1 }}
-        />
-        <AddButton route="/friends/friend/addfriend"/>
-      </View>
-
-      {loading ? (
-        <ActivityIndicator size="large" color="#c5ff36" />
-      ) : filteredFriends.length === 0 ? (
-        <Text style={styles.emptyText}>Aucun ami trouvé</Text>
-      ) : (
-        <View style={styles.cardsContainer}>
-          {filteredFriends.map((friendObj) => (
-          <UserCard
-            key={friendObj.friend.id}
-            id={friendObj.friend.id}
-            photo={friendObj.friend.photo}
-            firstname={friendObj.friend.firstname}
-            lastname={friendObj.friend.lastname}
-            type="friend" // 👈 ici
+        <View style={styles.searchRow}>
+          <SearchBar
+            value={search}
+            onChange={setSearch}
+            placeholder="Rechercher un ami..."
+            style={{ flex: 1 }}
           />
-          ))}
+          <AddButton route="/friends/friend/addfriend"/>
         </View>
-      )}
 
-
-
-
-
-      {/* SECTION INVITÉS */}
-      <Text style={[styles.title, { marginTop: 40 }]}>Mes Invités</Text>
-
-      <View style={styles.searchRow}>
-        <SearchBar
-          value={searchGuest}
-          onChange={setSearchGuest}
-          placeholder="Rechercher un invité..."
-          style={{ flex: 1 }}
-        />
-        <AddButton route="/friends/guest/addguest"/>
-      </View>
-
-      {loading ? (
-        <ActivityIndicator size="large" color="#c5ff36" />
-      ) : filteredGuests.length === 0 ? (
-        <Text style={styles.emptyText}>Aucun invité trouvé</Text>
-      ) : (
-        <View style={styles.cardsContainer}>
-          {filteredGuests.map((guestObj) => (
+        {loading ? (
+          <ActivityIndicator size="large" color="#c5ff36" />
+        ) : filteredFriends.length === 0 ? (
+          <Text style={styles.emptyText}>Aucun ami trouvé</Text>
+        ) : (
+          <View style={styles.cardsContainer}>
+            {filteredFriends.map((friendObj) => (
             <UserCard
-              key={guestObj.id}
-              id={guestObj.id}
-              firstname={guestObj.firstname}
-              lastname={guestObj.lastname}
-              type="guest" // 👈 ici
+              key={friendObj.friend.id}
+              id={friendObj.friend.id}
+              photo={friendObj.friend.photo}
+              firstname={friendObj.friend.firstname}
+              lastname={friendObj.friend.lastname}
+              type="friend" // 👈 ici
             />
-          ))}
+            ))}
+          </View>
+        )}
+
+
+
+
+
+        {/* SECTION INVITÉS */}
+        <Text style={[styles.title, { marginTop: 40 }]}>Mes Invités</Text>
+
+        <View style={styles.searchRow}>
+          <SearchBar
+            value={searchGuest}
+            onChange={setSearchGuest}
+            placeholder="Rechercher un invité..."
+            style={{ flex: 1 }}
+          />
+          <AddButton route="/friends/guest/addguest"/>
         </View>
-      )}
-    </ScrollView>
+
+        {loading ? (
+          <ActivityIndicator size="large" color="#c5ff36" />
+        ) : filteredGuests.length === 0 ? (
+          <Text style={styles.emptyText}>Aucun invité trouvé</Text>
+        ) : (
+          <View style={styles.cardsContainer}>
+            {filteredGuests.map((guestObj) => (
+              <UserCard
+                key={guestObj.id}
+                id={guestObj.id}
+                firstname={guestObj.firstname}
+                lastname={guestObj.lastname}
+                type="guest" // 👈 ici
+              />
+            ))}
+          </View>
+        )}
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 
 
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({  
   container: {
     padding: 20,
     paddingBottom: 120,

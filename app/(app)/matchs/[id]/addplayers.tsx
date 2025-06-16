@@ -10,6 +10,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, ScrollView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function AddPlayersPage() {
   const { id } = useLocalSearchParams();
@@ -87,67 +88,69 @@ const handleAddGuest = async (guestId: number) => {
 
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {/* En-tête */}
-      <View style={styles.header}>
-        <BackButton to={`/matchs/${id}`} />
-        <Text style={styles.title}>Ajouter des joueurs</Text>
-      </View>
-
-      {/* Section Amis */}
-      <Text style={styles.sectionTitle}>Amis</Text>
-      <SearchBar
-        value={searchFriend}
-        onChange={setSearchFriend}
-        placeholder="Rechercher un ami..."
-        style={styles.searchInput}
-      />
-      {filteredFriends.length === 0 ? (
-        <Text style={styles.emptyText}>Aucun ami trouvé</Text>
-      ) : (
-        <View style={styles.grid}>
-          {filteredFriends.map((f: any) => (
-<UserCardPlayers
-  key={f.friend.id}
-  id={f.friend.id}
-  firstname={f.friend.firstname}
-  lastname={f.friend.lastname}
-  photo={f.friend.photo}
-  type="friend"
-  onPress={() => handleAddFriend(f.friend.id)}
-  isAdded={addedPlayers.includes(f.friend.id)}
-/>
-          ))}
+    <SafeAreaView>
+      <ScrollView contentContainerStyle={styles.container}>
+        {/* En-tête */}
+        <View style={styles.header}>
+          <BackButton to={`/matchs/${id}`} />
+          <Text style={styles.title}>Ajouter des joueurs</Text>
         </View>
-      )}
 
-      {/* Section Invités */}
-      <Text style={styles.sectionTitle}>Invités</Text>
-      <SearchBar
-        value={searchGuest}
-        onChange={setSearchGuest}
-        placeholder="Rechercher un invité..."
-        style={styles.searchInput}
-      />
-      {filteredGuests.length === 0 ? (
-        <Text style={styles.emptyText}>Aucun invité trouvé</Text>
-      ) : (
-        <View style={styles.grid}>
-          {filteredGuests.map((g: any) => (
-            <UserCardPlayers
-                key={g.id}
-                id={g.id}
-                firstname={g.firstname}
-                lastname={g.lastname}
-                photo={undefined}
-                type="guest"
-                onPress={() => handleAddGuest(g.id)}
-                isAdded={addedGuests.includes(g.id)}
-            />
-          ))}
-        </View>
-      )}
-    </ScrollView>
+        {/* Section Amis */}
+        <Text style={styles.sectionTitle}>Amis</Text>
+        <SearchBar
+          value={searchFriend}
+          onChange={setSearchFriend}
+          placeholder="Rechercher un ami..."
+          style={styles.searchInput}
+        />
+        {filteredFriends.length === 0 ? (
+          <Text style={styles.emptyText}>Aucun ami trouvé</Text>
+        ) : (
+          <View style={styles.grid}>
+            {filteredFriends.map((f: any) => (
+  <UserCardPlayers
+    key={f.friend.id}
+    id={f.friend.id}
+    firstname={f.friend.firstname}
+    lastname={f.friend.lastname}
+    photo={f.friend.photo}
+    type="friend"
+    onPress={() => handleAddFriend(f.friend.id)}
+    isAdded={addedPlayers.includes(f.friend.id)}
+  />
+            ))}
+          </View>
+        )}
+
+        {/* Section Invités */}
+        <Text style={styles.sectionTitle}>Invités</Text>
+        <SearchBar
+          value={searchGuest}
+          onChange={setSearchGuest}
+          placeholder="Rechercher un invité..."
+          style={styles.searchInput}
+        />
+        {filteredGuests.length === 0 ? (
+          <Text style={styles.emptyText}>Aucun invité trouvé</Text>
+        ) : (
+          <View style={styles.grid}>
+            {filteredGuests.map((g: any) => (
+              <UserCardPlayers
+                  key={g.id}
+                  id={g.id}
+                  firstname={g.firstname}
+                  lastname={g.lastname}
+                  photo={undefined}
+                  type="guest"
+                  onPress={() => handleAddGuest(g.id)}
+                  isAdded={addedGuests.includes(g.id)}
+              />
+            ))}
+          </View>
+        )}
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 

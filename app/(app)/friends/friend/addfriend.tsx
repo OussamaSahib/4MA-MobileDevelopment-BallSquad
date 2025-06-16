@@ -5,6 +5,7 @@ import { addFriend, getAllUsers, getFriends } from "@/lib/api/friends/friend";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 
@@ -26,7 +27,7 @@ export default function AddFriendPage(){
   );
 
   return (
-    <View style={styles.page}>
+    <SafeAreaView>
       <View style={styles.header}>
         <BackButton />
 
@@ -68,18 +69,13 @@ export default function AddFriendPage(){
           )}
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 
 
 
 const styles= StyleSheet.create({
-  page:{
-    flex: 1,
-    backgroundColor: "#1c1c1c",
-    padding: 20,
-  },
   header:{
     flexDirection: "row",
     alignItems: "center",

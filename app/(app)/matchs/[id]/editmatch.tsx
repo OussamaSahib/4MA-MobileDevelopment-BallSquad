@@ -5,6 +5,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Alert, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 
@@ -98,158 +99,160 @@ export default function EditMatchPage() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.headerRow}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-          <BackButton />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Modifier le Match</Text>
-      </View>
-
-      {/* SPORT */}
-      <Text style={styles.label}>Sport <Text style={styles.required}>*</Text></Text>
-      <View style={styles.radioGroup}>
-        {sports.map((sport) => (
-          <TouchableOpacity
-            key={sport}
-            style={[styles.radio, form.sport === sport && styles.radioSelected]}
-            onPress={() => updateField("sport", sport)}
-          >
-            <Text style={[styles.radioText, form.sport === sport && styles.radioTextSelected]}>
-              {sport}
-            </Text>
+    <SafeAreaView>
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.headerRow}>
+          <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+            <BackButton />
           </TouchableOpacity>
-        ))}
-      </View>
-      {errors.sport && <Text style={styles.error}>{errors.sport}</Text>}
+          <Text style={styles.headerTitle}>Modifier le Match</Text>
+        </View>
 
-      {/* QUANTITY */}
-      <Text style={styles.label}>Nombre de joueurs <Text style={styles.required}>*</Text></Text>
-      <View style={styles.radioGroup}>
-        {Array.from({ length: 14 }, (_, i) => (i + 1).toString()).map((num) => (
-          <TouchableOpacity
-            key={num}
-            style={[styles.radio, form.quantity_players === num && styles.radioSelected]}
-            onPress={() => updateField("quantity_players", num)}
-          >
-            <Text style={[styles.radioText, form.quantity_players === num && styles.radioTextSelected]}>
-              {num}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-      {errors.quantity_players && <Text style={styles.error}>{errors.quantity_players}</Text>}
+        {/* SPORT */}
+        <Text style={styles.label}>Sport <Text style={styles.required}>*</Text></Text>
+        <View style={styles.radioGroup}>
+          {sports.map((sport) => (
+            <TouchableOpacity
+              key={sport}
+              style={[styles.radio, form.sport === sport && styles.radioSelected]}
+              onPress={() => updateField("sport", sport)}
+            >
+              <Text style={[styles.radioText, form.sport === sport && styles.radioTextSelected]}>
+                {sport}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+        {errors.sport && <Text style={styles.error}>{errors.sport}</Text>}
 
-      {/* DATE */}
-      <Text style={styles.label}>Date <Text style={styles.required}>*</Text></Text>
-      <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styles.input}>
-        <Text style={form.date ? styles.inputText : styles.placeholderText}>
-          {form.date || "Choisir une date"}
-        </Text>
-      </TouchableOpacity>
-      {showDatePicker && (
-        <DateTimePicker
-          value={new Date(form.date)}
-          mode="date"
-          display={Platform.OS === "ios" ? "spinner" : "default"}
-          onChange={handleDateChange}
-        />
-      )}
-      {errors.date && <Text style={styles.error}>{errors.date}</Text>}
+        {/* QUANTITY */}
+        <Text style={styles.label}>Nombre de joueurs <Text style={styles.required}>*</Text></Text>
+        <View style={styles.radioGroup}>
+          {Array.from({ length: 14 }, (_, i) => (i + 1).toString()).map((num) => (
+            <TouchableOpacity
+              key={num}
+              style={[styles.radio, form.quantity_players === num && styles.radioSelected]}
+              onPress={() => updateField("quantity_players", num)}
+            >
+              <Text style={[styles.radioText, form.quantity_players === num && styles.radioTextSelected]}>
+                {num}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+        {errors.quantity_players && <Text style={styles.error}>{errors.quantity_players}</Text>}
 
-      {/* HEURE */}
-      <Text style={styles.label}>Heures <Text style={styles.required}>*</Text></Text>
-      <View style={styles.timeRow}>
-        <TouchableOpacity onPress={() => setShowStartTimePicker(true)} style={styles.input}>
-          <Text style={form.start_time ? styles.inputText : styles.placeholderText}>
-            {form.start_time || "Début"}
+        {/* DATE */}
+        <Text style={styles.label}>Date <Text style={styles.required}>*</Text></Text>
+        <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styles.input}>
+          <Text style={form.date ? styles.inputText : styles.placeholderText}>
+            {form.date || "Choisir une date"}
           </Text>
         </TouchableOpacity>
-        <Text style={styles.arrow}>→</Text>
-        <TouchableOpacity onPress={() => setShowEndTimePicker(true)} style={styles.input}>
-          <Text style={form.end_time ? styles.inputText : styles.placeholderText}>
-            {form.end_time || "Fin"}
-          </Text>
-        </TouchableOpacity>
-      </View>
-      {showStartTimePicker && (
-        <DateTimePicker
-          value={new Date(`1970-01-01T${form.start_time}`)}
-          mode="time"
-          is24Hour={true}
-          onChange={handleStartTimeChange}
-        />
-      )}
-      {showEndTimePicker && (
-        <DateTimePicker
-          value={new Date(`1970-01-01T${form.end_time}`)}
-          mode="time"
-          is24Hour={true}
-          onChange={handleEndTimeChange}
-        />
-      )}
+        {showDatePicker && (
+          <DateTimePicker
+            value={new Date(form.date)}
+            mode="date"
+            display={Platform.OS === "ios" ? "spinner" : "default"}
+            onChange={handleDateChange}
+          />
+        )}
+        {errors.date && <Text style={styles.error}>{errors.date}</Text>}
 
-      {/* LIEU */}
-      <Text style={styles.label}>Lieu <Text style={styles.required}>*</Text></Text>
-      <View style={styles.radioGroup}>
-        {places.map((p) => (
-          <TouchableOpacity
-            key={p}
-            style={[styles.radio, form.place === p && styles.radioSelected]}
-            onPress={() => updateField("place", p)}
-          >
-            <Text style={[styles.radioText, form.place === p && styles.radioTextSelected]}>
-              {p}
+        {/* HEURE */}
+        <Text style={styles.label}>Heures <Text style={styles.required}>*</Text></Text>
+        <View style={styles.timeRow}>
+          <TouchableOpacity onPress={() => setShowStartTimePicker(true)} style={styles.input}>
+            <Text style={form.start_time ? styles.inputText : styles.placeholderText}>
+              {form.start_time || "Début"}
             </Text>
           </TouchableOpacity>
-        ))}
-      </View>
+          <Text style={styles.arrow}>→</Text>
+          <TouchableOpacity onPress={() => setShowEndTimePicker(true)} style={styles.input}>
+            <Text style={form.end_time ? styles.inputText : styles.placeholderText}>
+              {form.end_time || "Fin"}
+            </Text>
+          </TouchableOpacity>
+        </View>
+        {showStartTimePicker && (
+          <DateTimePicker
+            value={new Date(`1970-01-01T${form.start_time}`)}
+            mode="time"
+            is24Hour={true}
+            onChange={handleStartTimeChange}
+          />
+        )}
+        {showEndTimePicker && (
+          <DateTimePicker
+            value={new Date(`1970-01-01T${form.end_time}`)}
+            mode="time"
+            is24Hour={true}
+            onChange={handleEndTimeChange}
+          />
+        )}
 
-      {/* TERRAIN */}
-      <InputForm
-        label="Terrain"
-        value={form.field}
-        onChangeText={(text) => updateField("field", text)}
-        required
-        error={errors.field}
-      />
+        {/* LIEU */}
+        <Text style={styles.label}>Lieu <Text style={styles.required}>*</Text></Text>
+        <View style={styles.radioGroup}>
+          {places.map((p) => (
+            <TouchableOpacity
+              key={p}
+              style={[styles.radio, form.place === p && styles.radioSelected]}
+              onPress={() => updateField("place", p)}
+            >
+              <Text style={[styles.radioText, form.place === p && styles.radioTextSelected]}>
+                {p}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
 
-      {/* PRIX */}
-      <Text style={styles.label}>Prix total <Text style={styles.required}>*</Text></Text>
-      <View style={styles.timeRow}>
+        {/* TERRAIN */}
         <InputForm
-          label="Euros"
-          value={form.price_euros}
-          onChangeText={(text) => updateField("price_euros", text)}
+          label="Terrain"
+          value={form.field}
+          onChangeText={(text) => updateField("field", text)}
           required
-          keyboardType="numeric"
-          error={errors.price_euros}
-          showRequiredMark={false}
+          error={errors.field}
         />
-        <Text style={styles.arrow}>,</Text>
-        <InputForm
-          label="Cents"
-          value={form.price_cents}
-          onChangeText={(text) => updateField("price_cents", text)}
-          required
-          keyboardType="numeric"
-          error={errors.price_cents}
-          showRequiredMark={false}
-        />
-        <Text style={styles.arrow}>€</Text>
-      </View>
 
-      {/* BOUTON */}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleSubmit}
-        disabled={submitting}
-      >
-        <Text style={styles.buttonText}>
-          {submitting ? "Mise à jour..." : "Mettre à jour"}
-        </Text>
-      </TouchableOpacity>
-    </ScrollView>
+        {/* PRIX */}
+        <Text style={styles.label}>Prix total <Text style={styles.required}>*</Text></Text>
+        <View style={styles.timeRow}>
+          <InputForm
+            label="Euros"
+            value={form.price_euros}
+            onChangeText={(text) => updateField("price_euros", text)}
+            required
+            keyboardType="numeric"
+            error={errors.price_euros}
+            showRequiredMark={false}
+          />
+          <Text style={styles.arrow}>,</Text>
+          <InputForm
+            label="Cents"
+            value={form.price_cents}
+            onChangeText={(text) => updateField("price_cents", text)}
+            required
+            keyboardType="numeric"
+            error={errors.price_cents}
+            showRequiredMark={false}
+          />
+          <Text style={styles.arrow}>€</Text>
+        </View>
+
+        {/* BOUTON */}
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleSubmit}
+          disabled={submitting}
+        >
+          <Text style={styles.buttonText}>
+            {submitting ? "Mise à jour..." : "Mettre à jour"}
+          </Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
